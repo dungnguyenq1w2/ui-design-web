@@ -13,6 +13,7 @@
     "format": "npm run prettier:fix && npm run lint:fix"
   },
   "dependencies": {
+    "moment": "^2.29.4",
     "react": "^18.1.0",
     "react-countdown": "^2.3.2",
     "react-dom": "^18.1.0",

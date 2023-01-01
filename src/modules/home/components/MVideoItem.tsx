@@ -1,16 +1,15 @@
-import * as React from 'react'
 import image1 from '../assets/image/js-from-basic.png'
 import image2 from '../assets/image/js.png'
 import MVideo from './MVideo'
 
 export interface IMVideoItemProps {
-    id?: string
+    video: any
 }
 
-export default function MVideoItem(props: IMVideoItemProps) {
+export default function MVideoItem({ video }: IMVideoItemProps) {
     return (
-        <div className='h-[80vh] relative'>
-            <MVideo />
+        <div className='h-[80vh] relative snap-start'>
+            <MVideo video={video} />
             <div className='flex flex-col h-[20vh]'>
                 <div className='flex justify-between items-center px-2 py-1'>
                     <span className='text-sm font-bold'>On this course:</span>

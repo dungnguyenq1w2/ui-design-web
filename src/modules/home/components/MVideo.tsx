@@ -1,37 +1,18 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import '../assets/style/video.css'
+import { useRef, useState } from 'react'
 
-import { useEffect, useRef, useState } from 'react'
-import video1 from '../assets/video/video1.mp4'
 import MCommentModal from './MCommentModal'
-import MShareModal from './MShareModal'
 import MMoreModal from './MMoreModal'
+import MShareModal from './MShareModal'
 
 export interface IMVideoProps {
-    id?: string
+    video: any
 }
 
-export default function MVideo() {
+export default function MVideo({ video }: IMVideoProps) {
     const [playing, setPlaying] = useState(false)
     const [videoClick, setVideoClick] = useState(false)
-    const [actions, setActions] = useState<any>({
-        upvote: {
-            isPressed: false,
-            num: 0,
-        },
-        comment: {
-            isPressed: false,
-            num: 1,
-        },
-        bookmark: {
-            isPressed: false,
-            num: 2,
-        },
-        share: {
-            isPressed: false,
-            num: 3,
-        },
-    })
+    const [actions, setActions] = useState<any>(video.actions)
     const [isCommentModalOpen, setIsCommentModalOpen] = useState(false)
     const [isShareModalOpen, setIsShareModalOpen] = useState(false)
     const [isMoreModalOpen, setIsMoreModalOpen] = useState(false)
@@ -48,7 +29,7 @@ export default function MVideo() {
         setVideoClick((cur) => !cur)
     }
 
-    const handleActionChange = (type: string) => () => {
+    const handleActionChange = (type: string) => (comment: any) => {
         const newActions = { ...actions }
         if (type === 'upvote' || type === 'bookmark') {
             if (newActions[type].isPressed) {
@@ -58,6 +39,12 @@ export default function MVideo() {
                 newActions[type].num++
                 newActions[type].isPressed = true
             }
+        } else if (type === 'comment') {
+            newActions.comments.unshift({
+                id: new Date(),
+                name: 'Me',
+                content: comment,
+            })
         } else {
             if (newActions[type].isPressed) return
             else {
@@ -73,11 +60,10 @@ export default function MVideo() {
         <div className='bg-gray-400 h-[60vh] relative'>
             <div className='h-[60vh]'>
                 <video
-                    className='video__player'
+                    className='bg-black bg-opacity-90 object-contain w-full h-full'
                     loop
                     ref={videoRef}
-                    src={video1}
-                    // onClick={() => console.log('first')}
+                    src={video.src}
                     controls
                 >
                     <track kind='captions' />
@@ -113,9 +99,7 @@ export default function MVideo() {
                         xmlns='http://www.w3.org/2000/svg'
                         viewBox='0 0 24 24'
                         fill='currentColor'
-                        className={`w-8 h-8 ${
-                            actions.comment.isPressed ? 'text-green-500' : 'text-white'
-                        }`}
+                        className={`w-8 h-8 text-white`}
                         onClick={() => setIsCommentModalOpen((cur) => !cur)}
                     >
                         <path
@@ -124,7 +108,7 @@ export default function MVideo() {
                             clipRule='evenodd'
                         />
                     </svg>
-                    <span>{actions.comment.num}</span>
+                    <span>{actions.comments.length}</span>
                 </div>
                 <div className='flex flex-col items-center'>
                     <svg
@@ -181,7 +165,7 @@ export default function MVideo() {
             </div>
             {/* Info */}
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events*/}
-            <div className='absolute bottom-16 w-[87%] h-full' onClick={onVideoPress} />
+            <div className='absolute bottom-16 w-[87%] h-[80%]' onClick={onVideoPress} />
             <div
                 className={`absolute bottom-0 w-full h-16 flex p-2 gap-2 items-center bg-gray-800 bg-opacity-80 text-white ${
                     videoClick ? 'hidden animate-[blur_0.2s]' : 'visible animate-[blur_0.2s]'
@@ -200,27 +184,31 @@ export default function MVideo() {
                             clipRule='evenodd'
                         />
                     </svg>
-                    <span className='text-xs font-semibold'>Jessica</span>
+                    <span className='text-xs font-semibold'>{video.info.chanel}</span>
                 </div>
                 <div className='max-w-80 flex-1'>
                     <p className='text-sm truncate max-w-[11rem] font-semibold'>
-                        HELLO WORLD - DESIGN ...
+                        {video.info.title}
                     </p>
-                    <p className='text-xs truncate max-w-[11rem]'>
-                        An overview course about design pattern ...
-                    </p>
+                    <p className='text-xs truncate max-w-[11rem]'>{video.info.description}</p>
                     <p className='text-xs text-blue-600'>See more</p>
                 </div>
                 <div>
                     <button className='text-xs rounded-lg bg-green-600 px-2 py-1'>Followed</button>
                 </div>
             </div>
-            {isCommentModalOpen && <MCommentModal onClose={() => setIsCommentModalOpen(false)} />}
+            {isCommentModalOpen && (
+                <MCommentModal
+                    comments={video.actions.comments}
+                    onClose={() => setIsCommentModalOpen(false)}
+                    onComment={handleActionChange('comment')}
+                />
+            )}
             {isShareModalOpen && (
                 <MShareModal
                     onClose={() => setIsShareModalOpen(false)}
                     onShare={() => {
-                        handleActionChange('share')()
+                        handleActionChange('share')(null)
                         setIsShareModalOpen(false)
                     }}
                 />

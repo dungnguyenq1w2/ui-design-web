@@ -16,7 +16,8 @@ export interface IMShareModalProps {
 export default function MShareModal({ onClose, onShare }: IMShareModalProps) {
     return (
         <div className='fixed bottom-0 w-full bg-white z-10 border-t'>
-            <div className='flex justify-end p-2 border-b border-gray-500'>
+            <div className='flex justify-between p-2 border-b border-gray-500'>
+                <h1 className='text-center flex-1 font-bold ml-6'>SHARE</h1>
                 <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'

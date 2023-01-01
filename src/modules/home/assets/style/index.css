@@ -1,7 +1,5 @@
 .app__videos {
     position: relative;
-    overflow: scroll;
-    scroll-snap-type: y mandatory;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
