@@ -14,7 +14,7 @@ export default function MHome() {
                 <span>FOLLOWED</span>
                 <span>MY COURSES</span>
             </div>
-            <section className='h-[82vh] overflow-y-scroll'>
+            <section className='h-[80.5vh] overflow-y-scroll'>
                 <MVideo />
                 <MVideo />
                 <MVideo />

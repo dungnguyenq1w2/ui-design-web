@@ -6,7 +6,7 @@ export interface ICFooterProps {
 
 export default function CFooter() {
     return (
-        <nav className='fixed bottom-0 h-[5vh] bg-black w-full'>
+        <nav className='fixed bottom-0 h-[5.5vh] bg-black w-full p-1'>
             <ul className='flex justify-around'>
                 <li>
                     <NavLink

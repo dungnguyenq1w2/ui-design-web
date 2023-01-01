@@ -3,5 +3,5 @@ export interface IMVideoProps {
 }
 
 export default function MVideo() {
-    return <div className='h-[82vh] bg-gray-400'>video</div>
+    return <div className='h-[80.5vh] bg-gray-400'>video</div>
 }

@@ -161,7 +161,7 @@ export default function MSearch() {
                             </b>
                         </p>
                     </section>
-                    <section className='h-[83vh] overflow-y-scroll'>
+                    <section className='h-[82.5vh] overflow-y-scroll'>
                         {searchVideos.map((item, index) => {
                             return (
                                 <div
