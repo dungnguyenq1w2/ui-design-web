@@ -1,15 +1,33 @@
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 
+import { Search } from '../model/Search'
+import MSuggestionSearch from './MSuggestionSearch'
 export interface IMHeaderProps {
-    id?: string
+    data: any
 }
 
-export default function MHeader() {
+// export interface ICourse {
+//     id: string
+//     image: string
+//     title: string
+//     description: string
+//     creator: string
+//     currentPrice: number
+//     originalPrice: number
+//     enroll: number
+//     duration: number
+//     rating: number
+//     ratingCount: number
+// }
+
+export default function MHeader({ data }: IMHeaderProps) {
     //#region Data
     const inputRef = useRef<any>(null)
     const navigate = useNavigate()
     const [input, setInput] = useState('')
+    const [isSuggestionModalOpen, setIsSuggestionModalOpen] = useState(false)
+    const [suggestions, setSuggestions] = useState<Search[]>([])
     // const [searchParams, setSearchParams] = useSearchParams()
     //#endregion
 
@@ -19,6 +37,7 @@ export default function MHeader() {
             inputRef.current.focus()
         }
     }, [])
+
     const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const inputValue = input.trim()
@@ -33,10 +52,23 @@ export default function MHeader() {
             }).toString(),
         })
     }
+
+    const handleInputChange = (e: any) => {
+        setInput(e.target.value)
+        let newSuggestions = []
+        if (e.target.value) {
+            const inputValue = e.target.value.trim()
+            newSuggestions = [...data].filter((item) =>
+                item?.title.toLowerCase().includes(inputValue),
+            )
+        }
+        setSuggestions(newSuggestions)
+        setIsSuggestionModalOpen(true)
+    }
     //#endregion
 
     return (
-        <div className='flex p-3 items-center h-[9vh]'>
+        <div className='flex p-3 items-center h-[9vh] relative'>
             <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
@@ -44,7 +76,7 @@ export default function MHeader() {
                 strokeWidth={1.5}
                 stroke='currentColor'
                 className='w-6 h-6 mr-2'
-                onClick={() => navigate('/')}
+                onClick={() => navigate(-1)}
             >
                 <path
                     strokeLinecap='round'
@@ -77,7 +109,7 @@ export default function MHeader() {
                     ref={inputRef}
                     type='text'
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    onChange={handleInputChange}
                     placeholder='Search...'
                     className='pl-2 w-full bg-transparent text-sm focus:outline-none focus:ring-transparent'
                 />
@@ -96,6 +128,15 @@ export default function MHeader() {
                     />
                 </svg>
             </form>
+            {isSuggestionModalOpen && (
+                <MSuggestionSearch
+                    suggestions={suggestions}
+                    onPress={(title: string) => {
+                        setInput(title)
+                        setIsSuggestionModalOpen(false)
+                    }}
+                />
+            )}
         </div>
     )
 }

@@ -10,10 +10,10 @@ const MVideoCard = ({
 }: {
     id: string
     image: string
-    title: string
-    creator: string
-    view: number
-    duration: number
+    title?: string
+    creator?: string
+    view?: number
+    duration?: number
     rating: number
 }) => {
     return (

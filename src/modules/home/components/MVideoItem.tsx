@@ -18,7 +18,7 @@ export default function MVideoItem({ video }: IMVideoItemProps) {
                     </button>
                 </div>
                 <div className='bg-gray-300 flex items-center justify-between flex-1'>
-                    <button>
+                    <button title='previous'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             viewBox='0 0 24 24'
@@ -37,7 +37,7 @@ export default function MVideoItem({ video }: IMVideoItemProps) {
                         <img src={image2} alt='image2' className='object-cover w-20' />
                         <img src={image1} alt='image1' className='object-cover w-20' />
                     </div>
-                    <button>
+                    <button title='next'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             viewBox='0 0 24 24'

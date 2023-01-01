@@ -2,15 +2,15 @@
 export interface ICourse {
     id: string
     image: string
-    title: string
-    description: string
-    creator: string
-    currentPrice: number
-    originalPrice: number
-    enroll: number
-    duration: number
-    rating: number
-    ratingCount: number
+    title?: string
+    description?: string
+    creator?: string
+    currentPrice?: number
+    originalPrice?: number
+    enroll?: number
+    duration?: number
+    rating?: number
+    ratingCount?: number
 }
 // const MCourseCard: React.FC<ICourse> = (course: ICourse) => {
 const MCourseCard = ({
@@ -25,19 +25,7 @@ const MCourseCard = ({
     duration,
     rating,
     ratingCount,
-}: {
-    id: string
-    image: string
-    title: string
-    description: string
-    creator: string
-    currentPrice: number
-    originalPrice: number
-    enroll: number
-    duration: number
-    rating: number
-    ratingCount: number
-}) => {
+}: ICourse) => {
     return (
         <div
             className='flex justify-start max-w rounded shadow-lg border border-slate-300 m-2'

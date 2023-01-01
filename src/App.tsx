@@ -8,6 +8,8 @@ import CProfile from './common/components/CProfile'
 import CQuiz from './common/components/CQuiz'
 import MHome from './modules/home/pages'
 import MSearch from './modules/search/pages'
+import CReference from './common/components/CReference'
+import MFilterModal from './modules/search/components/MFilterModal'
 
 function App() {
     return (
@@ -16,9 +18,12 @@ function App() {
                 <Route path='/' element={<MHome />} />
                 <Route path='/search' element={<MSearch />} />
                 <Route path='/quiz' element={<CQuiz />} />
+                <Route path='/reference' element={<CReference />} />
                 <Route path='/new' element={<CNew />} />
                 <Route path='/course' element={<CCourse />} />
                 <Route path='/profile' element={<CProfile />} />
+                {/* test */}
+                <Route path='/test' element={<MFilterModal />} />
             </Routes>
 
             <Outlet />

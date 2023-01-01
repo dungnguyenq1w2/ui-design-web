@@ -1,3 +1,6 @@
+import * as React from 'react'
+import { Link } from 'react-router-dom'
+
 export interface IMMoreModalProps {
     id?: string
     onClose: () => void
@@ -41,7 +44,9 @@ export default function MMoreModal({ onClose }: IMMoreModalProps) {
                     />
                 </svg>
 
-                <span className='font-semibold'>Do quiz</span>
+                <Link to='/quiz'>
+                    <span className='font-semibold'>Do quiz</span>
+                </Link>
             </div>
             <div className='border-b border-gray-500 py-3 px-10 flex'>
                 <svg
@@ -58,7 +63,9 @@ export default function MMoreModal({ onClose }: IMMoreModalProps) {
                     <path d='M3 8.625c0-1.036.84-1.875 1.875-1.875h.375A3.75 3.75 0 019 10.5v1.875c0 1.036.84 1.875 1.875 1.875h1.875A3.75 3.75 0 0116.5 18v2.625c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625v-12z' />
                     <path d='M10.5 10.5a5.23 5.23 0 00-1.279-3.434 9.768 9.768 0 016.963 6.963 5.23 5.23 0 00-3.434-1.279h-1.875a.375.375 0 01-.375-.375V10.5z' />
                 </svg>
-                <span className='font-semibold'>View references</span>
+                <Link to='/reference'>
+                    <span className='font-semibold'>View references</span>
+                </Link>
             </div>
             <div className='border-b border-gray-500 py-3 px-10 flex'>
                 <svg

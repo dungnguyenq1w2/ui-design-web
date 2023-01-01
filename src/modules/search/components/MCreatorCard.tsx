@@ -12,13 +12,13 @@ const MCreatorCard = ({
 }: {
     id: string
     image: string
-    name: string
-    level: string
-    follower: number
+    name?: string
+    level?: string
+    follower?: number
     rating: number
-    course: number
-    description: string
-    badges: string[]
+    course?: number
+    description?: string
+    badges?: string[]
 }) => {
     return (
         <div
@@ -66,7 +66,7 @@ const MCreatorCard = ({
             </div>
             <p className='font-medium italic text-gray-700 text-base my-1'>{description}</p>
             <div className='px-1 pt-4 pb-2'>
-                {badges.map((badge, index) => {
+                {badges?.map((badge, index) => {
                     return (
                         <p
                             key={index}

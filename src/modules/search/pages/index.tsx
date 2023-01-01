@@ -3,77 +3,68 @@ import { MHeader } from '../components'
 import MCourseCard from '../components/MCourseCard'
 import MCreatorCard from '../components/MCreatorCard'
 import MVideoCard from '../components/MVideoCard'
-
+import { v4 as uuidv4 } from 'uuid'
+import { Search } from '../model/Search'
 export interface IMSearchProps {
     id?: string
 }
 
 // import logo from '../assets/images/js-from-basic.png'
 
-const videos = [
+const data: Search[] = [
     {
-        id: '001',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/js-from-basic.png',
         title: 'Javascript from basic to advanced',
         creator: 'Andrew',
         view: 250,
         duration: 5,
         rating: 4.7,
+        type: 'video',
     },
     {
-        id: '002',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/js-from-basic.png',
         title: 'Javascript from basic to advanced',
         creator: 'Andrew',
         view: 250,
         duration: 5,
         rating: 4.7,
+        type: 'video',
     },
     {
-        id: '003',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/js-from-basic.png',
         title: 'Javascript from basic to advanced',
         creator: 'Andrew',
         view: 250,
         duration: 5,
         rating: 4.7,
+        type: 'video',
     },
     {
-        id: '004',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/js-from-basic.png',
         title: 'Javascript from basic to advanced',
         creator: 'Andrew',
         view: 250,
         duration: 5,
         rating: 4.7,
+        type: 'video',
     },
     {
-        id: '005',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/js-from-basic.png',
         title: 'test',
         creator: 'Andrew',
         view: 250,
         duration: 5,
         rating: 4.7,
+        type: 'video',
     },
-]
-// export interface ICourse {
-//     id: string
-//     image: string
-//     title: string
-//     description: string
-//     creator: string
-//     currentPrice: number
-//     originalPrice: number
-//     enroll: number
-//     duration: number
-//     rating: number
-//     ratingCount: number
-// }
-
-const courses = [
+    //
     {
-        id: '001',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/js.png',
         title: 'Javascript from basic to advanced',
         description: 'Javascript from basic to advanced',
@@ -84,9 +75,10 @@ const courses = [
         duration: 137,
         rating: 4.7,
         ratingCount: 28,
+        type: 'course',
     },
     {
-        id: '002',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/js.png',
         title: 'Javascript from basic to advanced',
         description: 'Javascript from basic to advanced',
@@ -97,9 +89,10 @@ const courses = [
         duration: 137,
         rating: 4.7,
         ratingCount: 28,
+        type: 'course',
     },
     {
-        id: '003',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/js.png',
         title: 'Javascript from basic to advanced',
         description: 'Javascript from basic to advanced',
@@ -110,9 +103,10 @@ const courses = [
         duration: 137,
         rating: 4.7,
         ratingCount: 28,
+        type: 'course',
     },
     {
-        id: '004',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/js.png',
         title: 'test',
         description: 'Javascript from basic to advanced',
@@ -123,12 +117,11 @@ const courses = [
         duration: 137,
         rating: 4.7,
         ratingCount: 28,
+        type: 'course',
     },
-]
-
-const creators = [
+    //
     {
-        id: '001',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/creator01.png',
         name: 'Javascript for life',
         level: 'Teacher',
@@ -137,9 +130,10 @@ const creators = [
         course: 10,
         description: 'Javascript is love. Javascript is life',
         badges: ['Javascript', 'Nodejs', 'Reactjs', 'Fullstack'],
+        type: 'creator',
     },
     {
-        id: '002',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/creator01.png',
         name: 'Javascript for life',
         level: 'Teacher',
@@ -148,9 +142,10 @@ const creators = [
         course: 10,
         description: 'Javascript is love. Javascript is life',
         badges: ['Javascript', 'Nodejs', 'Reactjs', 'Fullstack'],
+        type: 'creator',
     },
     {
-        id: '003',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/creator01.png',
         name: 'Javascript for life',
         level: 'Teacher',
@@ -159,9 +154,10 @@ const creators = [
         course: 10,
         description: 'Javascript is love. Javascript is life',
         badges: ['Javascript', 'Nodejs', 'Reactjs', 'Fullstack'],
+        type: 'creator',
     },
     {
-        id: '004',
+        id: uuidv4(),
         image: 'src/modules/search/assets/images/creator01.png',
         name: 'Programer',
         level: 'Teacher',
@@ -170,6 +166,7 @@ const creators = [
         course: 10,
         description: 'Javascript is love. Javascript is life',
         badges: ['Javascript', 'Nodejs', 'Reactjs', 'Fullstack'],
+        type: 'creator',
     },
 ]
 
@@ -178,42 +175,30 @@ export default function MSearch() {
     const keyword = searchParams.get('keyword')
     const type = searchParams.get('type')
 
-    // let searchVideos
-    // let searchCourses
-    // let searchCreators
-
-    // if (type == 'video') {
     const searchVideos =
         keyword && keyword != ''
-            ? [...videos].filter((item) => item.title.toLowerCase().includes(keyword))
-            : [...videos]
-    // } else if (type == 'course') {
+            ? [...data].filter(
+                  (item) => item.type == 'video' && item.title?.toLowerCase().includes(keyword),
+              )
+            : [...data]
+
     const searchCourses =
         keyword && keyword != ''
-            ? [...courses].filter((item) => item.title.toLowerCase().includes(keyword))
-            : [...courses]
-    // } else if (type == 'creator') {
+            ? [...data].filter(
+                  (item) => item.type == 'course' && item.title?.toLowerCase().includes(keyword),
+              )
+            : [...data]
+
     const searchCreators =
         keyword && keyword != ''
-            ? [...creators].filter((item) => item.name.toLowerCase().includes(keyword))
-            : [...creators]
-    // } else {
-    // searchVideos =
-    //     keyword && keyword != ''
-    //         ? [...videos].filter((item) => item.title.toLowerCase().includes(keyword))
-    //         : [...videos]
-
-    // searchCourses =
-    //     keyword && keyword != ''
-    //         ? [...courses].filter((item) => item.title.toLowerCase().includes(keyword))
-    //         : [...courses]
-
-    // searchCreators = keyword && keyword != '' ? [] : []
-    // }
+            ? [...data].filter(
+                  (item) => item.type == 'creator' && item.name?.toLowerCase().includes(keyword),
+              )
+            : [...data]
 
     return (
         <div className='flex flex-col flex-1'>
-            <MHeader />
+            <MHeader data={data} />
             {type == 'video' ? (
                 <>
                     <section className='h-[8vh] px-2'>
@@ -237,7 +222,16 @@ export default function MSearch() {
                         {searchVideos.map((item, index) => {
                             return (
                                 <div key={index}>
-                                    <MVideoCard {...item} />
+                                    {/* <MVideoCard {...item} /> */}
+                                    <MVideoCard
+                                        id={item.id}
+                                        image={item.image}
+                                        title={item.title}
+                                        creator={item.creator}
+                                        view={item.view}
+                                        duration={item.duration}
+                                        rating={item.rating}
+                                    />
                                 </div>
                             )
                         })}
@@ -266,7 +260,19 @@ export default function MSearch() {
                         {searchCourses.map((item, index) => {
                             return (
                                 <div key={index}>
-                                    <MCourseCard {...item} />
+                                    <MCourseCard
+                                        id={item.id}
+                                        image={item.image}
+                                        title={item.title}
+                                        description={item.description}
+                                        creator={item.creator}
+                                        currentPrice={item.currentPrice}
+                                        originalPrice={item.originalPrice}
+                                        enroll={item.enroll}
+                                        duration={item.duration}
+                                        rating={item.rating}
+                                        ratingCount={item.ratingCount}
+                                    />
                                 </div>
                             )
                         })}
@@ -292,7 +298,17 @@ export default function MSearch() {
                         {searchCreators.map((item, index) => {
                             return (
                                 <div key={index}>
-                                    <MCreatorCard {...item} />
+                                    <MCreatorCard
+                                        id={item.id}
+                                        image={item.image}
+                                        name={item?.name}
+                                        level={item?.level}
+                                        follower={item?.follower}
+                                        rating={item.rating}
+                                        course={item?.course}
+                                        description={item?.description}
+                                        badges={item?.badges}
+                                    />
                                 </div>
                             )
                         })}
