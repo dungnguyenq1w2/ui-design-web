@@ -2,7 +2,7 @@ import './index.css'
 
 import { Outlet, Route, Routes } from 'react-router-dom'
 
-import CCourse from './common/components/CCOurse'
+import CCourse from './common/components/CCourse'
 import CFooter from './common/components/CFooter'
 import CNew from './common/components/CNew'
 import CProfile from './common/components/CProfile'
@@ -12,7 +12,7 @@ import MSearch from './modules/search/pages'
 
 function App() {
     return (
-        <div className='flex flex-col flex-1 min-h-screen pb-10'>
+        <div className='flex flex-col flex-1 min-h-screen'>
             <Routes>
                 <Route path='/' element={<MHome />} />
                 <Route path='/search' element={<MSearch />} />
@@ -23,7 +23,7 @@ function App() {
             </Routes>
 
             <Outlet />
-            <CFooter />
+            {/* <CFooter /> */}
         </div>
     )
 }

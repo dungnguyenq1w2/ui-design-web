@@ -36,7 +36,7 @@ export default function MHeader() {
     //#endregion
 
     return (
-        <div className='flex p-4 items-center h-[9vh]'>
+        <div className='flex p-3 items-center h-[9vh]'>
             <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'

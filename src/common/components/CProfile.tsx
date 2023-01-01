@@ -1,5 +1,11 @@
 import * as React from 'react'
+import CFooter from './CFooter'
 
 export default function CProfile() {
-    return <div>Profile</div>
+    return (
+        <div className='flex flex-col flex-1'>
+            <div className='flex flex-col flex-1'>Profile</div>
+            <CFooter />
+        </div>
+    )
 }
