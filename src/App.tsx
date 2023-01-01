@@ -7,7 +7,7 @@ import CFooter from './common/components/CFooter'
 
 function App() {
     return (
-        <div className='flex flex-col flex-1 bg-black bg-opacity-[85%] min-h-screen pb-10'>
+        <div className='flex flex-col flex-1 min-h-screen pb-10'>
             <Routes>
                 <Route path='/' element={<MHome />} />
                 <Route path='/search' element={<MSearch />} />

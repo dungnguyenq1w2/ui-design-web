@@ -31,7 +31,7 @@ export default function MHeader() {
                 onSubmit={handleSearchSubmit}
                 className='flex flex-1 bg-gray-200 p-2 rounded-full'
             >
-                <button type='submit'>
+                <button type='submit' title='Search'>
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'

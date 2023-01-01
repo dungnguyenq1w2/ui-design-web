@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 
 export interface IMHeaderProps {
     id?: string
@@ -9,13 +9,23 @@ export default function MHeader() {
     //#region Data
     const navigate = useNavigate()
     const [input, setInput] = useState('')
+    // const [searchParams, setSearchParams] = useSearchParams()
     //#endregion
 
     //#region Event
     const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const inputValue = input.trim()
-        if (!inputValue) return
+        // if (!inputValue) return
+        // setSearchParams()
+        // navigate(`/search?keyword=${inputValue}`)
+        navigate({
+            pathname: '/search',
+            search: createSearchParams({
+                type: 'video',
+                keyword: inputValue,
+            }).toString(),
+        })
     }
     //#endregion
     return (
@@ -26,7 +36,7 @@ export default function MHeader() {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-6 h-6 text-white mr-2'
+                className='w-6 h-6 mr-2'
                 onClick={() => navigate('/')}
             >
                 <path
@@ -40,7 +50,7 @@ export default function MHeader() {
                 onSubmit={handleSearchSubmit}
                 className='flex flex-1 bg-gray-200 p-2 rounded-full'
             >
-                <button type='submit'>
+                <button type='submit' title='Search'>
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
                         fill='none'
