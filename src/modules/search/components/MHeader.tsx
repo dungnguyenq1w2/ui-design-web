@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 
 export interface IMHeaderProps {
@@ -7,12 +7,18 @@ export interface IMHeaderProps {
 
 export default function MHeader() {
     //#region Data
+    const inputRef = useRef<any>(null)
     const navigate = useNavigate()
     const [input, setInput] = useState('')
     // const [searchParams, setSearchParams] = useSearchParams()
     //#endregion
 
     //#region Event
+    useEffect(() => {
+        if (inputRef.current != null) {
+            inputRef.current.focus()
+        }
+    }, [])
     const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const inputValue = input.trim()
@@ -28,6 +34,7 @@ export default function MHeader() {
         })
     }
     //#endregion
+
     return (
         <div className='flex p-4 items-center h-[9vh]'>
             <svg
@@ -67,6 +74,7 @@ export default function MHeader() {
                     </svg>
                 </button>
                 <input
+                    ref={inputRef}
                     type='text'
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
