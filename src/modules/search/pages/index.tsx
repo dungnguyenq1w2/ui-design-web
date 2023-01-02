@@ -1,9 +1,9 @@
-import { useSearchParams } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { MHeader } from '../components'
 import MCourseCard from '../components/MCourseCard'
 import MCreatorCard from '../components/MCreatorCard'
 import MVideoCard from '../components/MVideoCard'
+import { v4 as uuidv4 } from 'uuid'
 import { Search } from '../model/Search'
 export interface IMSearchProps {
     id?: string
@@ -171,7 +171,7 @@ const data: Search[] = [
 ]
 
 export default function MSearch() {
-    const [searchParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams()
     const keyword = searchParams.get('keyword')
     const type = searchParams.get('type')
 
