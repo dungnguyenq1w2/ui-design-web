@@ -23,7 +23,7 @@ export default function MCommentModal({ comments, onClose, onComment }: IMCommen
     }
 
     return (
-        <div className='fixed bottom-0 w-full bg-white z-10 border-t h-[30rem] '>
+        <div className='fixed bottom-0 w-full bg-white z-10 border-t h-[25rem] '>
             <div className='flex justify-between p-2 '>
                 <h1 className='text-center flex-1 font-bold ml-6'>COMMENT</h1>
                 <svg
@@ -79,7 +79,7 @@ export default function MCommentModal({ comments, onClose, onComment }: IMCommen
                     </div>
                 </form>
             </div>
-            <div className='h-[22rem] max-h-[22rem] overflow-x-auto'>
+            <div className='h-[20rem] max-h-[20rem] overflow-x-auto'>
                 {comments.map((comment: any) => (
                     <div key={comment.id} className='flex items-center py-2 px-3'>
                         <svg

@@ -13,7 +13,7 @@ export default function MHeader() {
 
     //#endregion
     return (
-        <div className='flex p-3 items-center h-[9vh]'>
+        <div className='flex p-3 items-center h-[6vh]'>
             <div className='flex flex-1 bg-gray-200 p-2 rounded-full'>
                 <svg
                     xmlns='http://www.w3.org/2000/svg'

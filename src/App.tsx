@@ -13,7 +13,7 @@ import MFilterModal from './modules/search/components/MFilterModal'
 
 function App() {
     return (
-        <div className='flex flex-col flex-1 min-h-screen'>
+        <div className='flex flex-col flex-1 min-h-screen absolute top-[4vh]'>
             <Routes>
                 <Route path='/' element={<MHome />} />
                 <Route path='/search' element={<MSearch />} />
