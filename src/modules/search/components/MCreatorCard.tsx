@@ -1,6 +1,5 @@
 // const MCourseCard: React.FC<ICourse> = (course: ICourse) => {
 const MCreatorCard = ({
-    id,
     image,
     name,
     level,

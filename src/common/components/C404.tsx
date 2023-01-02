@@ -1,4 +1,3 @@
-import * as React from 'react'
 import CFooter from './CFooter'
 
 export default function C404() {

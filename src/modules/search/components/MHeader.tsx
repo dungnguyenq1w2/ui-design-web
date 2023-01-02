@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 
 import { Search } from '../model/Search'
 import MSuggestionSearch from './MSuggestionSearch'

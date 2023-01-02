@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import CFooter from './CFooter'
 
 export default function CReference() {
     const navigate = useNavigate()
@@ -25,7 +24,7 @@ export default function CReference() {
                 <span className='flex-1 font-bold text-center mr-6 text-lg'>References</span>
             </div>
             <div className='flex flex-col flex-1 items-center'>
-                <div className='flex p-4 shadow-lg border border-slate-300 mx-2 my-3 p-1 items-center'>
+                <div className='flex p-4 shadow-lg border border-slate-300 mx-2 my-3 items-center'>
                     <div className='flex flex-col'>
                         <p className='text-blue-600 font-bold underline'>
                             JavaScript: The Definitive Guide
@@ -45,7 +44,7 @@ export default function CReference() {
                         />
                     </svg>
                 </div>
-                <div className='flex p-4 m-2 shadow-lg border border-slate-300 mx-2 my-3 p-1 items-center'>
+                <div className='flex p-4 m-2 shadow-lg border border-slate-300 mx-2 my-3 items-center'>
                     <div className='flex flex-col'>
                         <p className='text-blue-600 font-bold underline'>
                             JavaScript: The Definitive Guide

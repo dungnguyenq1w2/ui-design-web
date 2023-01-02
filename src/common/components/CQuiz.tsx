@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import CFooter from './CFooter'
 
 export default function CQuiz() {
     const navigate = useNavigate()

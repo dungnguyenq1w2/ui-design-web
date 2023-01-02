@@ -14,12 +14,10 @@ export interface ICourse {
 }
 // const MCourseCard: React.FC<ICourse> = (course: ICourse) => {
 const MCourseCard = ({
-    id,
     image,
     title,
     description,
     creator,
-    currentPrice,
     originalPrice,
     enroll,
     duration,
