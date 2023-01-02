@@ -11,6 +11,7 @@ import videoImage01 from '../assets/images/js-from-basic.png'
 import courseImage01 from '../assets/images/js.png'
 
 import creatorImage01 from '../assets/images/creator01.png'
+import { useMemo } from 'react'
 
 export interface IMSearchProps {
     id?: string
@@ -23,19 +24,19 @@ const data: Search[] = [
     {
         id: uuidv4(),
         image: videoImage01,
-        title: 'Javascript from basic to advanced',
+        title: 'Javascript',
         creator: 'Andrew',
         view: 250,
         duration: 5,
-        rating: 4.7,
+        rating: 4.6,
         type: 'video',
     },
     {
         id: uuidv4(),
         image: videoImage01,
-        title: 'Javascript from basic to advanced',
+        title: 'Javascript basic',
         creator: 'Andrew',
-        view: 250,
+        view: 251,
         duration: 5,
         rating: 4.7,
         type: 'video',
@@ -181,33 +182,176 @@ const data: Search[] = [
 export default function MSearch() {
     const [searchParams] = useSearchParams()
     const keyword = searchParams.get('keyword')
-    const type = searchParams.get('type')
+    const filter = JSON.parse(searchParams.get('filter') ?? '{}')
 
-    const searchVideos =
-        keyword && keyword != ''
-            ? [...data].filter(
-                  (item) => item.type == 'video' && item.title?.toLowerCase().includes(keyword),
-              )
-            : [...data]
+    // const searchVideos =
+    //     keyword && keyword != ''
+    //         ? [...data].filter(
+    //               (item) => item.type == 'video' && item.title?.toLowerCase().includes(keyword),
+    //           )
+    //         : [...data]
 
-    const searchCourses =
-        keyword && keyword != ''
-            ? [...data].filter(
-                  (item) => item.type == 'course' && item.title?.toLowerCase().includes(keyword),
-              )
-            : [...data]
+    // const searchCourses =
+    //     keyword && keyword != ''
+    //         ? [...data].filter(
+    //               (item) => item.type == 'course' && item.title?.toLowerCase().includes(keyword),
+    //           )
+    //         : [...data]
 
-    const searchCreators =
-        keyword && keyword != ''
-            ? [...data].filter(
-                  (item) => item.type == 'creator' && item.name?.toLowerCase().includes(keyword),
-              )
-            : [...data]
+    // const searchCreators =
+    //     keyword && keyword != ''
+    //         ? [...data].filter(
+    //               (item) => item.type == 'creator' && item.name?.toLowerCase().includes(keyword),
+    //           )
+    //         : [...data]
+    const searchData = useMemo(() => {
+        // if (!keyword) {
+        //     return data
+        // }
+
+        // re{video:...1,course:..2,...3]
+        let result = []
+        if (filter.type === 'all') {
+            result = data
+                .filter((e: any) => {
+                    if (e?.title) return e.title.toLowerCase().includes(keyword)
+                    else if (e?.name) return e.name.toLowerCase().includes(keyword)
+                })
+                .reduce((obj: any, cur: any) => {
+                    if (cur.type === 'video') {
+                        const newVideos: any[] =
+                            obj?.videos == undefined ? [cur] : [...obj.videos, cur]
+                        return { ...obj, videos: newVideos }
+                    } else if (cur.type === 'course') {
+                        const newCourses: any[] =
+                            obj?.courses == undefined ? [cur] : [...obj.courses, cur]
+                        return { ...obj, courses: newCourses }
+                    } else if (cur.type === 'creator') {
+                        const newCreators: any[] =
+                            obj?.creators == undefined ? [cur] : [...obj.creators, cur]
+                        return { ...obj, creators: newCreators }
+                    }
+                }, {})
+            // const videos = result.filter((item: any) => item?.type === 'video')
+            // const courses = result.filter((item: any) => item?.type === 'course')
+            // const creators = result.filter((item: any) => item?.type === 'creator')
+            // result = { videos: videos, courses: courses, creators: creators }
+        } else {
+            result = data.filter((e: any) => {
+                if (e.type === filter.type) {
+                    if (e?.title) return e.title.toLowerCase().includes(keyword)
+                    else if (e?.name) return e.name.toLowerCase().includes(keyword)
+                } else {
+                    return false
+                }
+            })
+
+            if (filter.type === 'video') {
+                if (filter[filter.type].duration) {
+                    const tokens = filter[filter.type].duration.split(',')
+                    result = result.filter(
+                        (video: any) =>
+                            video?.duration >= parseInt(tokens[0]) &&
+                            video?.duration <= parseInt(tokens[1]),
+                    )
+                }
+
+                if (filter[filter.type].rating) {
+                    const tokens = filter[filter.type].rating.split(',')
+                    result = result.filter(
+                        (video: any) =>
+                            video?.rating >= parseInt(tokens[0]) &&
+                            video?.rating <= parseInt(tokens[1]),
+                    )
+                }
+
+                if (filter[filter.type].sortby) {
+                    const sortby = filter[filter.type].sortby
+                    if (sortby === 'popular') {
+                        result = result.sort((a: any, b: any) => b?.view - a?.view)
+                    } else if (sortby === 'rating') {
+                        result = result.sort((a: any, b: any) => b?.rating - a?.rating)
+                    }
+                }
+            } else if (filter.type === 'course') {
+                const courseFilter: any = {}
+                if (filter[filter.type].duration) {
+                    const tokens = filter[filter.type].duration.split(',')
+                    courseFilter.duration = {}
+                    courseFilter.duration.low = parseInt(tokens[0])
+                    courseFilter.duration.high = parseInt(tokens[1])
+                }
+                if (filter[filter.type].price) {
+                    const tokens = filter[filter.type].price.split(',')
+                    courseFilter.price = {}
+                    courseFilter.price.low = parseInt(tokens[0])
+                    courseFilter.price.high = parseInt(tokens[1])
+                }
+                if (filter[filter.type].rating) {
+                    const tokens = filter[filter.type].rating.split(',')
+                    courseFilter.rating = {}
+                    courseFilter.rating.low = parseInt(tokens[0])
+                    courseFilter.rating.high = parseInt(tokens[1])
+                }
+                if (filter[filter.type].sortby) {
+                    courseFilter.sortby = filter[filter.type].sortby
+                }
+                result = result.filter(
+                    (e: any) =>
+                        e.duration >= courseFilter.duration.low &&
+                        e.duration <= courseFilter.duration.high &&
+                        e.currentPrice >= courseFilter.price.low &&
+                        e.currentPrice <= courseFilter.price.high &&
+                        e.rating >= courseFilter.rating.low &&
+                        e.rating <= courseFilter.rating.high,
+                )
+                if (courseFilter.sortby !== 'all') {
+                    if (courseFilter.sortby === 'popular') {
+                        result = result.sort((a: any, b: any) => {
+                            return b?.enroll - a?.enroll
+                        })
+                    } else if (courseFilter.sortby === 'rating') {
+                        result = result.sort((a: any, b: any) => {
+                            return b?.rating - a?.rating
+                        })
+                    }
+                }
+            } else if (filter.type === 'creator') {
+                if (filter[filter.type].level) {
+                    result = result.filter(
+                        (creator: any) => creator?.level === filter[filter.type].level,
+                    )
+                }
+
+                if (filter[filter.type].rating) {
+                    const tokens = filter[filter.type].rating.split(',')
+                    result = result.filter(
+                        (video: any) =>
+                            video?.rating >= parseInt(tokens[0]) &&
+                            video?.rating <= parseInt(tokens[1]),
+                    )
+                }
+
+                if (filter[filter.type].sortby) {
+                    const sortby = filter[filter.type].sortby
+                    if (sortby === 'popular') {
+                        result = result.sort((a: any, b: any) => b?.follower - a?.follower)
+                    } else if (sortby === 'rating') {
+                        result = result.sort((a: any, b: any) => b?.rating - a?.rating)
+                    }
+                }
+            }
+        }
+
+        return result
+    }, [filter, keyword])
+
+    console.log('Search data: ', searchData)
 
     return (
         <div className='flex flex-col flex-1'>
             <MHeader data={data} />
-            {type == 'video' ? (
+            {filter?.type == 'video' ? (
                 <>
                     <section className='h-[8vh] px-2'>
                         <span>
@@ -221,16 +365,14 @@ export default function MSearch() {
                         </span>
                         <p>
                             <b>
-                                {searchVideos.length}{' '}
-                                {searchVideos.length < 2 ? 'result' : 'results'}
+                                {searchData.length} {searchData.length < 2 ? 'result' : 'results'}
                             </b>
                         </p>
                     </section>
                     <section className='h-[82.5vh] overflow-y-scroll'>
-                        {searchVideos.map((item, index) => {
+                        {searchData.map((item: any, index: any) => {
                             return (
                                 <div key={index}>
-                                    {/* <MVideoCard {...item} /> */}
                                     <MVideoCard
                                         id={item.id}
                                         image={item.image}
@@ -245,7 +387,7 @@ export default function MSearch() {
                         })}
                     </section>
                 </>
-            ) : type == 'course' ? (
+            ) : filter?.type == 'course' ? (
                 <>
                     <section className='h-[8vh] px-2'>
                         <span>
@@ -259,13 +401,12 @@ export default function MSearch() {
                         </span>
                         <p>
                             <b>
-                                {searchCourses.length}{' '}
-                                {searchCourses.length < 2 ? 'result' : 'results'}
+                                {searchData.length} {searchData.length < 2 ? 'result' : 'results'}
                             </b>
                         </p>
                     </section>
                     <section className='h-[83vh] overflow-y-scroll'>
-                        {searchCourses.map((item, index) => {
+                        {searchData.map((item: any, index: any) => {
                             return (
                                 <div key={index}>
                                     <MCourseCard
@@ -286,7 +427,7 @@ export default function MSearch() {
                         })}
                     </section>
                 </>
-            ) : (
+            ) : filter?.type == 'creator' ? (
                 <>
                     <section className='h-[8vh] px-2'>
                         <span>
@@ -297,13 +438,12 @@ export default function MSearch() {
                         </span>
                         <p>
                             <b>
-                                {searchCreators.length}{' '}
-                                {searchCreators.length < 2 ? 'result' : 'results'}
+                                {searchData.length} {searchData.length < 2 ? 'result' : 'results'}
                             </b>
                         </p>
                     </section>
                     <section className='h-[83vh] overflow-y-scroll'>
-                        {searchCreators.map((item, index) => {
+                        {searchData.map((item: any, index: any) => {
                             return (
                                 <div key={index}>
                                     <MCreatorCard
@@ -322,7 +462,8 @@ export default function MSearch() {
                         })}
                     </section>
                 </>
-            )}
+            ) : null}
+            {/* <MVideoCard {...item} /> */}
         </div>
     )
 }

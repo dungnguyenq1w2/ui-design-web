@@ -9,7 +9,6 @@ import CQuiz from './common/components/CQuiz'
 import MHome from './modules/home/pages'
 import MSearch from './modules/search/pages'
 import CReference from './common/components/CReference'
-import MFilterModal from './modules/search/components/MFilterModal'
 
 function App() {
     return (
@@ -22,8 +21,6 @@ function App() {
                 <Route path='/new' element={<CNew />} />
                 <Route path='/course' element={<CCourse />} />
                 <Route path='/profile' element={<CProfile />} />
-                {/* test */}
-                <Route path='/test' element={<MFilterModal />} />
             </Routes>
 
             <Outlet />

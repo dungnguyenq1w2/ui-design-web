@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
+import MFilterModal from './MFilterModal'
 
 import MSuggestionSearch from './MSuggestionSearch'
 export interface IMHeaderProps {
@@ -28,7 +29,49 @@ export default function MHeader({ data }: IMHeaderProps) {
     const [input, setInput] = useState('')
     const [isSuggestionModalOpen, setIsSuggestionModalOpen] = useState(false)
     const [suggestions, setSuggestions] = useState<any[]>([])
+    const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
+
+    const [filter, setFilter] = useState({
+        type: 'all',
+        all: {},
+        course: {
+            duration: '0,1000',
+            price: '0,1000',
+            rating: '0,5',
+            sortby: 'all',
+        },
+        video: {
+            duration: null,
+            rating: null,
+            sortby: null,
+        },
+        creator: {
+            level: null,
+            rating: null,
+        },
+    })
+
+    const [filterSubmit, setFilterSubmit] = useState<any>({
+        type: 'all',
+        all: {},
+        course: {
+            duration: null,
+            price: null,
+            rating: null,
+            sortby: null,
+        },
+        video: {
+            duration: null,
+            rating: null,
+            sortby: null,
+        },
+        creator: {
+            level: null,
+            rating: null,
+        },
+    })
     // const [searchParams, setSearchParams] = useSearchParams()
+
     //#endregion
 
     //#region Event
@@ -44,11 +87,13 @@ export default function MHeader({ data }: IMHeaderProps) {
         // if (!inputValue) return
         // setSearchParams()
         // navigate(`/search?keyword=${inputValue}`)
+        // const { type, ...searchFilter } = { ...filterSubmit }
+        console.log({ ...filterSubmit[filterSubmit.type] })
         navigate({
             pathname: '/search',
             search: createSearchParams({
-                type: 'video',
                 keyword: inputValue,
+                filter: JSON.stringify(filterSubmit),
             }).toString(),
         })
     }
@@ -59,12 +104,12 @@ export default function MHeader({ data }: IMHeaderProps) {
 
         if (e.target.value) {
             const inputValue = e.target.value.trim().toLowerCase()
-            newSuggestions = [...data]
-                .filter((e) => {
+            newSuggestions = data
+                .filter((e: any) => {
                     if (e?.title) return e.title.toLowerCase().includes(inputValue)
                     else if (e?.name) return e.name.toLowerCase().includes(inputValue)
                 })
-                .map((e) => ({ id: e.id, title: e?.title ? e.title : e.name }))
+                .map((e: any) => ({ id: e.id, title: e?.title ? e.title : e.name }))
         } else {
             newSuggestions = []
         }
@@ -74,6 +119,13 @@ export default function MHeader({ data }: IMHeaderProps) {
 
         setSuggestions(result)
         setIsSuggestionModalOpen(true)
+    }
+
+    const handleFilterApply = () => {
+        setFilterSubmit({ ...filter })
+        setTimeout(() => {
+            submitButtonRef.current.click()
+        }, 50)
     }
     //#endregion
 
@@ -130,6 +182,7 @@ export default function MHeader({ data }: IMHeaderProps) {
                     strokeWidth={1.5}
                     stroke='currentColor'
                     className='w-6 h-6'
+                    onClick={() => setIsFilterModalOpen(!isFilterModalOpen)}
                 >
                     <path
                         strokeLinecap='round'
@@ -141,6 +194,7 @@ export default function MHeader({ data }: IMHeaderProps) {
             {isSuggestionModalOpen && (
                 <MSuggestionSearch
                     suggestions={suggestions}
+                    onClose={() => setIsSuggestionModalOpen(false)}
                     onPress={(title: string) => {
                         setInput(title)
                         setIsSuggestionModalOpen(false)
@@ -148,6 +202,14 @@ export default function MHeader({ data }: IMHeaderProps) {
                             return submitButtonRef?.current ? submitButtonRef.current.click() : null
                         }, 50)
                     }}
+                />
+            )}
+            {isFilterModalOpen && (
+                <MFilterModal
+                    onFilterChange={setFilter}
+                    onClose={() => setIsFilterModalOpen(false)}
+                    filter={filter}
+                    onApply={handleFilterApply}
                 />
             )}
         </div>
