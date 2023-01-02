@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 const MFilterModal = () => {
     return (
         <div className='flex flex-col'>

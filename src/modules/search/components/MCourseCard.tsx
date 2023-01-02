@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import { Course } from '../pages'
 export interface ICourse {
     id: string
@@ -14,12 +15,10 @@ export interface ICourse {
 }
 // const MCourseCard: React.FC<ICourse> = (course: ICourse) => {
 const MCourseCard = ({
-    id,
     image,
     title,
     description,
     creator,
-    currentPrice,
     originalPrice,
     enroll,
     duration,
