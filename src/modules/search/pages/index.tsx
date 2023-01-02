@@ -5,6 +5,13 @@ import MCourseCard from '../components/MCourseCard'
 import MCreatorCard from '../components/MCreatorCard'
 import MVideoCard from '../components/MVideoCard'
 import { Search } from '../model/Search'
+
+import videoImage01 from '../assets/images/js-from-basic.png'
+
+import courseImage01 from '../assets/images/js.png'
+
+import creatorImage01 from '../assets/images/creator01.png'
+
 export interface IMSearchProps {
     id?: string
 }
@@ -12,9 +19,10 @@ export interface IMSearchProps {
 // import logo from '../assets/images/js-from-basic.png'
 
 const data: Search[] = [
+    // videos
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/js-from-basic.png',
+        image: videoImage01,
         title: 'Javascript from basic to advanced',
         creator: 'Andrew',
         view: 250,
@@ -24,7 +32,7 @@ const data: Search[] = [
     },
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/js-from-basic.png',
+        image: videoImage01,
         title: 'Javascript from basic to advanced',
         creator: 'Andrew',
         view: 250,
@@ -34,7 +42,7 @@ const data: Search[] = [
     },
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/js-from-basic.png',
+        image: videoImage01,
         title: 'Javascript from basic to advanced',
         creator: 'Andrew',
         view: 250,
@@ -44,7 +52,7 @@ const data: Search[] = [
     },
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/js-from-basic.png',
+        image: videoImage01,
         title: 'Javascript from basic to advanced',
         creator: 'Andrew',
         view: 250,
@@ -54,7 +62,7 @@ const data: Search[] = [
     },
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/js-from-basic.png',
+        image: videoImage01,
         title: 'test',
         creator: 'Andrew',
         view: 250,
@@ -62,10 +70,10 @@ const data: Search[] = [
         rating: 4.7,
         type: 'video',
     },
-    //
+    // courses
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/js.png',
+        image: courseImage01,
         title: 'Javascript from basic to advanced',
         description: 'Javascript from basic to advanced',
         creator: 'Andrew',
@@ -79,7 +87,7 @@ const data: Search[] = [
     },
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/js.png',
+        image: courseImage01,
         title: 'Javascript from basic to advanced',
         description: 'Javascript from basic to advanced',
         creator: 'Andrew',
@@ -93,7 +101,7 @@ const data: Search[] = [
     },
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/js.png',
+        image: courseImage01,
         title: 'Javascript from basic to advanced',
         description: 'Javascript from basic to advanced',
         creator: 'Andrew',
@@ -107,7 +115,7 @@ const data: Search[] = [
     },
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/js.png',
+        image: courseImage01,
         title: 'test',
         description: 'Javascript from basic to advanced',
         creator: 'Andrew',
@@ -119,10 +127,10 @@ const data: Search[] = [
         ratingCount: 28,
         type: 'course',
     },
-    //
+    // creators
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/creator01.png',
+        image: creatorImage01,
         name: 'Javascript for life',
         level: 'Teacher',
         follower: 123,
@@ -134,7 +142,7 @@ const data: Search[] = [
     },
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/creator01.png',
+        image: creatorImage01,
         name: 'Javascript for life',
         level: 'Teacher',
         follower: 123,
@@ -146,7 +154,7 @@ const data: Search[] = [
     },
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/creator01.png',
+        image: creatorImage01,
         name: 'Javascript for life',
         level: 'Teacher',
         follower: 123,
@@ -158,7 +166,7 @@ const data: Search[] = [
     },
     {
         id: uuidv4(),
-        image: 'src/modules/search/assets/images/creator01.png',
+        image: creatorImage01,
         name: 'Programer',
         level: 'Teacher',
         follower: 123,
