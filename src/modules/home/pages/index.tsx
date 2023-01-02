@@ -185,7 +185,7 @@ export default function MHome() {
     return (
         <div className='flex flex-col flex-1'>
             <MHeader />
-            <div className='flex justify-center gap-8 overflow-x-hidden px-4 text-xs font-semibo h-[3vh]'>
+            <div className='flex justify-center gap-8 overflow-x-hidden px-4 text-xs font-semibo h-[4vh]'>
                 <span className='font-bold underline underline-offset-8'>RECOMMENDED</span>
                 <span className=''>FOLLOWED</span>
                 <span className=''>COURSES</span>

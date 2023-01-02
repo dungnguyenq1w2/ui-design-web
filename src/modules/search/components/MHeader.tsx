@@ -68,7 +68,7 @@ export default function MHeader({ data }: IMHeaderProps) {
     //#endregion
 
     return (
-        <div className='flex p-3 items-center h-[6vh] relative'>
+        <div className='flex p-3 items-center h-[9vh] relative'>
             <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'

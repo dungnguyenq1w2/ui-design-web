@@ -23,7 +23,7 @@ export default function MCommentModal({ comments, onClose, onComment }: IMCommen
     }
 
     return (
-        <div className='fixed bottom-0 w-full bg-white z-10 border-t h-[25rem] '>
+        <div className='fixed bottom-0 w-full bg-white z-10 border-t h-[27rem] '>
             <div className='flex justify-between p-2 '>
                 <h1 className='text-center flex-1 font-bold ml-6'>COMMENT</h1>
                 <svg
