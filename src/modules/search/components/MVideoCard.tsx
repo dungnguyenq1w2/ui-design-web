@@ -30,7 +30,7 @@ const MVideoCard = ({
                 <p className='font-bold text-xl mb-2'>{title}</p>
                 <div className='flex justify-between'>
                     <p className='font-bold text-gray-700 text-base'>{creator}</p>
-                    <p className='font-medium text-gray-700 text-base'>{duration} mins</p>
+                    <p className='font-medium text-gray-700 text-base '>{duration} mins</p>
                 </div>
                 <div className='flex justify-between'>
                     <div className='flex flex-row items-center'>
