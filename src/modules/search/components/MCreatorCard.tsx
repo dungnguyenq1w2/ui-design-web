@@ -1,14 +1,6 @@
 // const MCourseCard: React.FC<ICourse> = (course: ICourse) => {
-const MCreatorCard = ({
-    image,
-    name,
-    level,
-    follower,
-    rating,
-    course,
-    description,
-    badges,
-}: {
+
+interface IMCreatorCardProps {
     id: string
     image: string
     name?: string
@@ -18,7 +10,9 @@ const MCreatorCard = ({
     course?: number
     description?: string
     badges?: string[]
-}) => {
+}
+
+const MCreatorCard = (props: IMCreatorCardProps) => {
     return (
         <div
             // className='flex justify-start max-w rounded shadow-lg border border-slate-300 m-2'
@@ -28,17 +22,19 @@ const MCreatorCard = ({
                 <div className='flex justify-start flex-1 items-center'>
                     <img
                         className='h-full'
-                        src={image}
+                        src={props?.image}
                         // src={require(item.image)}
                         alt={'avatar'}
                     />
                     <div className='flex flex-col ml-1'>
-                        <p className='font-bold text-medium'>{name}</p>
+                        <p className='font-bold text-medium'>{props?.name}</p>
                         <div>
-                            <span className='text-base'>{level}</span>
-                            <span className='text-base'>- {follower} followers</span>
+                            <span className='text-base'>{props?.level}</span>
+                            <span className='text-base'>
+                                &nbsp;-&nbsp;{props?.follower} followers
+                            </span>
                             <div className='inline-block items-center'>
-                                <span className='text-base'>- {rating}</span>
+                                <span className='text-base'>&nbsp;-&nbsp;{props?.rating}</span>
                                 <svg
                                     xmlns='http://www.w3.org/2000/svg'
                                     viewBox='0 0 24 24'
@@ -53,7 +49,7 @@ const MCreatorCard = ({
                                 </svg>
                             </div>
                         </div>
-                        <p className='text-base'>{course} courses</p>
+                        <p className='text-base'>{props?.course} courses</p>
                     </div>
                 </div>
                 <button
@@ -63,9 +59,11 @@ const MCreatorCard = ({
                     Follow
                 </button>
             </div>
-            <p className='font-medium italic text-gray-700 text-base my-1'>{description}</p>
+            <p className='font-medium italic text-gray-700 text-base my-1 truncate'>
+                {props?.description}
+            </p>
             <div className='px-1 pt-4 pb-2'>
-                {badges?.map((badge, index) => {
+                {props?.badges?.map((badge, index) => {
                     return (
                         <p
                             key={index}

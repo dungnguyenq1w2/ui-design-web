@@ -1,5 +1,5 @@
 // import { Course } from '../pages'
-export interface ICourse {
+interface MCourseCardProps {
     id: string
     image: string
     title?: string
@@ -12,35 +12,28 @@ export interface ICourse {
     rating?: number
     ratingCount?: number
 }
+
 // const MCourseCard: React.FC<ICourse> = (course: ICourse) => {
-const MCourseCard = ({
-    image,
-    title,
-    description,
-    creator,
-    originalPrice,
-    enroll,
-    duration,
-    rating,
-    ratingCount,
-}: ICourse) => {
+const MCourseCard = (props: MCourseCardProps) => {
     return (
         <div
             className='flex justify-start max-w rounded shadow-lg border border-slate-300 m-2'
             // className='flex flex-row max-w-sm rounded bg-white shadow-lg justify-between'
         >
-            <img className='max-h-full' src={image} alt={title ?? ''} />
+            <img className='max-h-full' src={props?.image} alt={props?.title ?? ''} />
             <div className='flex flex-col mx-1 my-2 flex-1'>
-                <p className='text-gray-900 text-base font-semibold'>{title}</p>
-                <p className='text-gray-700 text-sm mb-2'>{description}</p>
+                <p className='text-gray-900 text-base font-semibold'>{props?.title}</p>
+                <p className='text-gray-700 text-sm mb-2'>{props?.description}</p>
                 <div className='flex justify-between mb-1'>
-                    <p className='font-semibold text-gray-900 text-base'>${originalPrice}</p>
-                    <p className='font-medium text-gray-900 text-base'>{duration} mins</p>
+                    <p className='font-semibold text-gray-900 text-base'>${props?.originalPrice}</p>
+                    <p className='font-medium text-gray-900 text-base'>{props?.duration} mins</p>
                 </div>
                 <div className='flex justify-between mb-1'>
-                    <p className='font-normal italic text-gray-700 text-base'>{enroll} enrolls</p>
+                    <p className='font-normal italic text-gray-700 text-base'>
+                        {props?.enroll} enrolls
+                    </p>
                     <div className='flex flex-row items-center'>
-                        <span className='font-medium text-gray-700 text-base'>{rating}</span>
+                        <span className='font-medium text-gray-700 text-base'>{props?.rating}</span>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             viewBox='0 0 24 24'
@@ -53,11 +46,11 @@ const MCourseCard = ({
                                 clipRule='evenodd'
                             />
                         </svg>
-                        <span>({ratingCount})</span>
+                        <span>({props?.ratingCount})</span>
                     </div>
                 </div>
                 <div className='flex justify-between items-center'>
-                    <p className='font-bold text-gray-900 text-base'>{creator}</p>
+                    <p className='font-bold text-gray-900 text-base'>{props?.creator}</p>
                     <button
                         type='button'
                         className='bg-transparent hover:bg-green-500 text-green-500 font-semibold hover:text-white py-1 px-2 border-2 border-green-500 hover:border-transparent rounded-lg'
