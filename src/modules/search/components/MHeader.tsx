@@ -32,25 +32,34 @@ export default function MHeader({ data }: IMHeaderProps) {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
     // const [searchParams] = useSearchParams()
 
-    const [filter, setFilter] = useState({
-        type: 'all',
-        all: {},
-        course: {
-            duration: '0,1000',
-            price: '0,1000',
-            rating: '0,5',
-            sortby: 'all',
+    const [filter, setFilter] = useState(
+        // searchParams.get('filter')
+        //     ? JSON.parse(searchParams.get('filter') ?? '{}')
+        //     :
+        {
+            type: 'all',
+            all: {},
+            course: {
+                // duration: '0,1000',
+                // price: '0,1000',
+                // rating: '0,5',
+                // sortby: 'all',
+                duration: null,
+                price: null,
+                rating: null,
+                sortby: null,
+            },
+            video: {
+                duration: null,
+                rating: null,
+                sortby: null,
+            },
+            creator: {
+                level: null,
+                rating: null,
+            },
         },
-        video: {
-            duration: null,
-            rating: null,
-            sortby: null,
-        },
-        creator: {
-            level: null,
-            rating: null,
-        },
-    })
+    )
 
     const [filterSubmit, setFilterSubmit] = useState<any>({
         type: 'all',
@@ -76,12 +85,6 @@ export default function MHeader({ data }: IMHeaderProps) {
     //#endregion
 
     //#region Event
-    useEffect(() => {
-        if (inputRef.current != null) {
-            inputRef.current.focus()
-        }
-    }, [])
-
     const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const inputValue = input.trim().toLowerCase()
@@ -89,6 +92,7 @@ export default function MHeader({ data }: IMHeaderProps) {
         // setSearchParams()
         // navigate(`/search?keyword=${inputValue}`)
         // const { type, ...searchFilter } = { ...filterSubmit }
+        console.log('🚀 ~ filter', filter)
         console.log({ ...filterSubmit[filterSubmit.type] })
         navigate({
             pathname: '/search',
@@ -128,6 +132,14 @@ export default function MHeader({ data }: IMHeaderProps) {
             submitButtonRef.current.click()
         }, 50)
     }
+
+    useEffect(() => {
+        // handleFilterApply()
+
+        if (inputRef.current != null) {
+            inputRef.current.focus()
+        }
+    }, [])
     //#endregion
 
     return (
@@ -139,7 +151,7 @@ export default function MHeader({ data }: IMHeaderProps) {
                 strokeWidth={1.5}
                 stroke='currentColor'
                 className='w-6 h-6 mr-2'
-                onClick={() => navigate('/')}
+                onClick={() => navigate(-1)}
             >
                 <path
                     strokeLinecap='round'

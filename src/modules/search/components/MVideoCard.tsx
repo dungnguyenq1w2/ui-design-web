@@ -1,12 +1,4 @@
-// const MCourseCard: React.FC<ICourse> = (course: ICourse) => {
-const MVideoCard = ({
-    image,
-    title,
-    creator,
-    view,
-    duration,
-    rating,
-}: {
+interface IMVideoCardProps {
     id: string
     image: string
     title?: string
@@ -14,7 +6,9 @@ const MVideoCard = ({
     view?: number
     duration?: number
     rating: number
-}) => {
+}
+// const MCourseCard: React.FC<ICourse> = (course: ICourse) => {
+const MVideoCard = (props: IMVideoCardProps) => {
     return (
         <div
             // className='flex justify-start max-w rounded shadow-lg border border-slate-300 m-2'
@@ -22,15 +16,15 @@ const MVideoCard = ({
         >
             <img
                 className='w-full'
-                src={image}
+                src={props?.image}
                 // src={require(item.image)}
-                alt={title ?? ''}
+                alt={props?.title ?? ''}
             />
             <div className='py-2 px-1'>
-                <p className='font-bold text-xl mb-2'>{title}</p>
+                <p className='font-bold text-xl mb-2'>{props?.title}</p>
                 <div className='flex justify-between'>
-                    <p className='font-bold text-gray-700 text-base'>{creator}</p>
-                    <p className='font-medium text-gray-700 text-base '>{duration} mins</p>
+                    <p className='font-bold text-gray-700 text-base'>{props?.creator}</p>
+                    <p className='font-medium text-gray-700 text-base '>{props?.duration} mins</p>
                 </div>
                 <div className='flex justify-between'>
                     <div className='flex flex-row items-center'>
@@ -53,10 +47,10 @@ const MVideoCard = ({
                                 d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'
                             />
                         </svg>
-                        <p className='ml-1 font-bold text-gray-700 text-base'>{view}</p>
+                        <p className='ml-1 font-bold text-gray-700 text-base'>{props?.view}</p>
                     </div>
                     <div className='flex flex-row items-center'>
-                        <p className='font-medium text-gray-700 text-base'>{rating}</p>
+                        <p className='font-medium text-gray-700 text-base'>{props?.rating}</p>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             viewBox='0 0 24 24'
