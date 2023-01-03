@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 import MFilterModal from './MFilterModal'
 
 import MSuggestionSearch from './MSuggestionSearch'
@@ -30,7 +30,7 @@ export default function MHeader({ data }: IMHeaderProps) {
     const [isSuggestionModalOpen, setIsSuggestionModalOpen] = useState(false)
     const [suggestions, setSuggestions] = useState<any[]>([])
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
-    const [searchParams] = useSearchParams()
+    // const [searchParams] = useSearchParams()
 
     const [filter, setFilter] = useState(
         // searchParams.get('filter')
