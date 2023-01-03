@@ -34,8 +34,6 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
             [filter.type]: { ...filter[filter.type], [key]: e.target.value },
         }
 
-        console.log(e.target.value)
-
         onFilterChange(newFilter)
     }
 
@@ -91,7 +89,7 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
                         </label>
                         <select
                             id='duration'
-                            value={filter[filter.type].duration ?? '0,1000'}
+                            defaultValue='0,1000'
                             onChange={handleFilterChange('duration')}
                             className='flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5'
                         >
@@ -111,11 +109,13 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
                         </label>
                         <select
                             id='price'
-                            value={filter[filter.type].price ?? '0,1000'}
+                            defaultValue='0,1000'
                             onChange={handleFilterChange('price')}
                             className='flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5'
                         >
-                            <option value='0,1000'>All</option>
+                            <option selected value='0,1000'>
+                                All
+                            </option>
                             <option value='0,0'>Free</option>
                             <option value='0,4.99'>&lt; $5</option>
                             <option value='5,9.99'>$5 - $10</option>
@@ -131,7 +131,7 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
                         </label>
                         <select
                             id='rating'
-                            value={filter[filter.type].rating ?? '0,5'}
+                            defaultValue='0,5'
                             onChange={handleFilterChange('rating')}
                             className='flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5'
                         >
@@ -151,7 +151,7 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
                         </label>
                         <select
                             id='sortby'
-                            value={filter[filter.type].sortby ?? 'all'}
+                            defaultValue='all'
                             onChange={handleFilterChange('sortby')}
                             className='flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5'
                         >
@@ -159,6 +159,26 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
                             <option value='popular'>Popular</option>
                             <option value='rating'>Ratings</option>
                         </select>
+                    </div>
+
+                    <div className='flex justify-end px-4'>
+                        <button
+                            type='button'
+                            onClick={onClose}
+                            className='inline-flex w-auto justify-center rounded-md border-2 border-red-500 px-4 py-2 font-bold text-red-500 shadow-sm ml-3 text-sm'
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type='button'
+                            onClick={() => {
+                                onApply()
+                                onClose()
+                            }}
+                            className='inline-flex w-auto justify-center rounded-md border-2 border-green-500 px-4 py-2 font-bold text-green-500 shadow-sm ml-3 text-sm'
+                        >
+                            Apply
+                        </button>
                     </div>
                 </>
             ) : filter?.type === 'video' ? (
@@ -172,7 +192,7 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
                         </label>
                         <select
                             id='duration'
-                            value={filter[filter.type].duration ?? '0,1000'}
+                            defaultValue='0,1000'
                             onChange={handleFilterChange('duration')}
                             className='flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5'
                         >
@@ -191,7 +211,7 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
                         </label>
                         <select
                             id='rating'
-                            value={filter[filter.type].rating ?? '0,5'}
+                            defaultValue='0,5'
                             onChange={handleFilterChange('rating')}
                             className='flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5'
                         >
@@ -211,7 +231,7 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
                         </label>
                         <select
                             id='sortby'
-                            value={filter[filter.type].sortby ?? 'all'}
+                            defaultValue='all'
                             onChange={handleFilterChange('sortby')}
                             className='flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5'
                         >
@@ -219,6 +239,26 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
                             <option value='popular'>Popular</option>
                             <option value='rating'>Ratings</option>
                         </select>
+                    </div>
+
+                    <div className='flex justify-end px-4'>
+                        <button
+                            type='button'
+                            onClick={onClose}
+                            className='inline-flex w-auto justify-center rounded-md border-2 border-red-500 px-4 py-2 font-bold text-red-500 shadow-sm ml-3 text-sm'
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type='button'
+                            onClick={() => {
+                                onApply()
+                                onClose()
+                            }}
+                            className='inline-flex w-auto justify-center rounded-md border-2 border-green-500 px-4 py-2 font-bold text-green-500 shadow-sm ml-3 text-sm'
+                        >
+                            Apply
+                        </button>
                     </div>
                 </>
             ) : filter?.type === 'creator' ? (
@@ -232,7 +272,7 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
                         </label>
                         <select
                             id='level'
-                            value={filter[filter.type].level ?? 'all'}
+                            defaultValue='all'
                             onChange={handleFilterChange('level')}
                             className='flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5'
                         >
@@ -251,7 +291,7 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
                         </label>
                         <select
                             id='rating'
-                            value={filter[filter.type].rating ?? '0,5'}
+                            defaultValue='0,5'
                             onChange={handleFilterChange('rating')}
                             className='flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5'
                         >
@@ -262,29 +302,30 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
                             <option value='0,3.49'>3.0-3.5</option>
                         </select>
                     </div>
+
+                    <div className='flex justify-end px-4'>
+                        <button
+                            type='button'
+                            onClick={onClose}
+                            className='inline-flex w-auto justify-center rounded-md border-2 border-red-500 px-4 py-2 font-bold text-red-500 shadow-sm ml-3 text-sm'
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type='button'
+                            onClick={() => {
+                                onApply()
+                                onClose()
+                            }}
+                            className='inline-flex w-auto justify-center rounded-md border-2 border-green-500 px-4 py-2 font-bold text-green-500 shadow-sm ml-3 text-sm'
+                        >
+                            Apply
+                        </button>
+                    </div>
                 </>
             ) : (
                 <></>
             )}
-            <div className='flex justify-end px-4'>
-                <button
-                    type='button'
-                    onClick={onClose}
-                    className='inline-flex w-auto justify-center rounded-md border-2 border-red-500 px-4 py-2 font-bold text-red-500 shadow-sm ml-3 text-sm'
-                >
-                    Cancel
-                </button>
-                <button
-                    type='button'
-                    onClick={() => {
-                        onApply()
-                        onClose()
-                    }}
-                    className='inline-flex w-auto justify-center rounded-md border-2 border-green-500 px-4 py-2 font-bold text-green-500 shadow-sm ml-3 text-sm'
-                >
-                    Apply
-                </button>
-            </div>
         </div>
     )
 }
