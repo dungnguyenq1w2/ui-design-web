@@ -1,17 +1,15 @@
+// import { createSearchParams, Link, useSearchParams } from 'react-router-dom'
 import { useSearchParams } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid'
 import { MHeader } from '../components'
 import MCourseCard from '../components/MCourseCard'
 import MCreatorCard from '../components/MCreatorCard'
 import MVideoCard from '../components/MVideoCard'
-import { Search } from '../model/Search'
-
-import videoImage01 from '../assets/images/js-from-basic.png'
-
-import courseImage01 from '../assets/images/js.png'
-
-import creatorImage01 from '../assets/images/creator01.png'
 import { useMemo } from 'react'
+
+import { data } from '../data/SampleData'
+import MCourseCardSmall from '../components/MCourseCardSmall'
+import MVideoCardSmall from '../components/MVideoCardSmall'
+import MCreatorCardSmall from '../components/MCreatorCardSmall'
 
 export interface IMSearchProps {
     id?: string
@@ -19,191 +17,11 @@ export interface IMSearchProps {
 
 // import logo from '../assets/images/js-from-basic.png'
 
-const data: Search[] = [
-    // videos
-    {
-        id: uuidv4(),
-        image: videoImage01,
-        title: 'Javascript',
-        creator: 'Andrew',
-        view: 250,
-        duration: 5,
-        rating: 4.6,
-        type: 'video',
-    },
-    {
-        id: uuidv4(),
-        image: videoImage01,
-        title: 'Javascript basic',
-        creator: 'Andrew',
-        view: 251,
-        duration: 5,
-        rating: 4.7,
-        type: 'video',
-    },
-    {
-        id: uuidv4(),
-        image: videoImage01,
-        title: 'Javascript from basic to advanced',
-        creator: 'Andrew',
-        view: 250,
-        duration: 5,
-        rating: 4.7,
-        type: 'video',
-    },
-    {
-        id: uuidv4(),
-        image: videoImage01,
-        title: 'Javascript from basic to advanced',
-        creator: 'Andrew',
-        view: 250,
-        duration: 5,
-        rating: 4.7,
-        type: 'video',
-    },
-    {
-        id: uuidv4(),
-        image: videoImage01,
-        title: 'test',
-        creator: 'Andrew',
-        view: 250,
-        duration: 5,
-        rating: 4.7,
-        type: 'video',
-    },
-    // courses
-    {
-        id: uuidv4(),
-        image: courseImage01,
-        title: 'Javascript from basic to advanced',
-        description: 'Javascript from basic to advanced',
-        creator: 'Andrew',
-        currentPrice: 0,
-        originalPrice: 4.99,
-        enroll: 200,
-        duration: 137,
-        rating: 4.7,
-        ratingCount: 28,
-        type: 'course',
-    },
-    {
-        id: uuidv4(),
-        image: courseImage01,
-        title: 'Javascript from basic to advanced',
-        description: 'Javascript from basic to advanced',
-        creator: 'Andrew',
-        currentPrice: 0,
-        originalPrice: 4.99,
-        enroll: 200,
-        duration: 137,
-        rating: 4.7,
-        ratingCount: 28,
-        type: 'course',
-    },
-    {
-        id: uuidv4(),
-        image: courseImage01,
-        title: 'Javascript from basic to advanced',
-        description: 'Javascript from basic to advanced',
-        creator: 'Andrew',
-        currentPrice: 0,
-        originalPrice: 4.99,
-        enroll: 200,
-        duration: 137,
-        rating: 4.7,
-        ratingCount: 28,
-        type: 'course',
-    },
-    {
-        id: uuidv4(),
-        image: courseImage01,
-        title: 'test',
-        description: 'Javascript from basic to advanced',
-        creator: 'Andrew',
-        currentPrice: 0,
-        originalPrice: 4.99,
-        enroll: 200,
-        duration: 137,
-        rating: 4.7,
-        ratingCount: 28,
-        type: 'course',
-    },
-    // creators
-    {
-        id: uuidv4(),
-        image: creatorImage01,
-        name: 'Javascript for life',
-        level: 'Teacher',
-        follower: 123,
-        rating: 4.7,
-        course: 10,
-        description: 'Javascript is love. Javascript is life',
-        badges: ['Javascript', 'Nodejs', 'Reactjs', 'Fullstack'],
-        type: 'creator',
-    },
-    {
-        id: uuidv4(),
-        image: creatorImage01,
-        name: 'Javascript for life',
-        level: 'Teacher',
-        follower: 123,
-        rating: 4.7,
-        course: 10,
-        description: 'Javascript is love. Javascript is life',
-        badges: ['Javascript', 'Nodejs', 'Reactjs', 'Fullstack'],
-        type: 'creator',
-    },
-    {
-        id: uuidv4(),
-        image: creatorImage01,
-        name: 'Javascript for life',
-        level: 'Teacher',
-        follower: 123,
-        rating: 4.7,
-        course: 10,
-        description: 'Javascript is love. Javascript is life',
-        badges: ['Javascript', 'Nodejs', 'Reactjs', 'Fullstack'],
-        type: 'creator',
-    },
-    {
-        id: uuidv4(),
-        image: creatorImage01,
-        name: 'Programer',
-        level: 'Teacher',
-        follower: 123,
-        rating: 4.7,
-        course: 10,
-        description: 'Javascript is love. Javascript is life',
-        badges: ['Javascript', 'Nodejs', 'Reactjs', 'Fullstack'],
-        type: 'creator',
-    },
-]
-
 export default function MSearch() {
     const [searchParams] = useSearchParams()
     const keyword = searchParams.get('keyword')
     const filter = JSON.parse(searchParams.get('filter') ?? '{}')
 
-    // const searchVideos =
-    //     keyword && keyword != ''
-    //         ? [...data].filter(
-    //               (item) => item.type == 'video' && item.title?.toLowerCase().includes(keyword),
-    //           )
-    //         : [...data]
-
-    // const searchCourses =
-    //     keyword && keyword != ''
-    //         ? [...data].filter(
-    //               (item) => item.type == 'course' && item.title?.toLowerCase().includes(keyword),
-    //           )
-    //         : [...data]
-
-    // const searchCreators =
-    //     keyword && keyword != ''
-    //         ? [...data].filter(
-    //               (item) => item.type == 'creator' && item.name?.toLowerCase().includes(keyword),
-    //           )
-    //         : [...data]
     const searchData = useMemo(() => {
         // if (!keyword) {
         //     return data
@@ -296,15 +114,34 @@ export default function MSearch() {
                 if (filter[filter.type].sortby) {
                     courseFilter.sortby = filter[filter.type].sortby
                 }
-                result = result.filter(
-                    (e: any) =>
-                        e.duration >= courseFilter.duration.low &&
-                        e.duration <= courseFilter.duration.high &&
-                        e.currentPrice >= courseFilter.price.low &&
-                        e.currentPrice <= courseFilter.price.high &&
-                        e.rating >= courseFilter.rating.low &&
-                        e.rating <= courseFilter.rating.high,
-                )
+
+                result = result.filter((e: any) => {
+                    let isMatch = true
+                    if (courseFilter?.duration) {
+                        isMatch =
+                            e.duration >= courseFilter.duration.low &&
+                            e.duration <= courseFilter.duration.high
+                    }
+                    if (courseFilter?.price) {
+                        isMatch =
+                            e.currentPrice >= courseFilter.price.low &&
+                            e.currentPrice <= courseFilter.price.high
+                    }
+                    if (courseFilter?.duration) {
+                        isMatch =
+                            e.rating >= courseFilter.rating.low &&
+                            e.rating <= courseFilter.rating.high
+                    }
+
+                    return isMatch
+                    // e.duration >= courseFilter.duration.low &&
+                    // e.duration <= courseFilter.duration.high &&
+                    // e.currentPrice >= courseFilter.price.low &&
+                    // e.currentPrice <= courseFilter.price.high &&
+                    // e.rating >= courseFilter.rating?.low &&
+                    // e.rating <= courseFilter.rating?.high,
+                })
+
                 if (courseFilter.sortby !== 'all') {
                     if (courseFilter.sortby === 'popular') {
                         result = result.sort((a: any, b: any) => {
@@ -373,15 +210,7 @@ export default function MSearch() {
                         {searchData.map((item: any, index: any) => {
                             return (
                                 <div key={index}>
-                                    <MVideoCard
-                                        id={item.id}
-                                        image={item.image}
-                                        title={item.title}
-                                        creator={item.creator}
-                                        view={item.view}
-                                        duration={item.duration}
-                                        rating={item.rating}
-                                    />
+                                    <MVideoCard {...item} />
                                 </div>
                             )
                         })}
@@ -409,19 +238,7 @@ export default function MSearch() {
                         {searchData.map((item: any, index: any) => {
                             return (
                                 <div key={index}>
-                                    <MCourseCard
-                                        id={item.id}
-                                        image={item.image}
-                                        title={item.title}
-                                        description={item.description}
-                                        creator={item.creator}
-                                        currentPrice={item.currentPrice}
-                                        originalPrice={item.originalPrice}
-                                        enroll={item.enroll}
-                                        duration={item.duration}
-                                        rating={item.rating}
-                                        ratingCount={item.ratingCount}
-                                    />
+                                    <MCourseCard {...item} />
                                 </div>
                             )
                         })}
@@ -446,22 +263,76 @@ export default function MSearch() {
                         {searchData.map((item: any, index: any) => {
                             return (
                                 <div key={index}>
-                                    <MCreatorCard
-                                        id={item.id}
-                                        image={item.image}
-                                        name={item?.name}
-                                        level={item?.level}
-                                        follower={item?.follower}
-                                        rating={item.rating}
-                                        course={item?.course}
-                                        description={item?.description}
-                                        badges={item?.badges}
-                                    />
+                                    <MCreatorCard {...item} />
                                 </div>
                             )
                         })}
                     </section>
                 </>
+            ) : filter?.type === 'all' ? (
+                <div className='px-1'>
+                    <div className='flex justify-between'>
+                        <p className='px-2'>
+                            <b>{`Courses (${searchData?.courses?.length ?? 0})`}</b>
+                        </p>
+                        {/* <Link
+                            to={`/search?${createSearchParams({
+                                keyword: keyword ?? '',
+                                filter: JSON.stringify({ ...filter, type: 'course' }),
+                            })}`}
+                            className='px-2 mt-1 text-sky-400 text-sm font-medium'
+                        >
+                            See more
+                        </Link> */}
+                        {searchData?.courses?.length > 2 && (
+                            <p className='px-2 mt-1 text-sky-400 text-sm font-medium'>See more</p>
+                        )}
+                    </div>
+                    <section className='flex overflow-x-scroll'>
+                        {searchData?.courses?.map((item: any, index: any) => {
+                            return (
+                                <div key={index}>
+                                    <MCourseCardSmall {...item} />
+                                </div>
+                            )
+                        })}
+                        {/* <MCourseCardSmall {...item} key={index} /> */}
+                    </section>
+                    <div className='flex justify-between'>
+                        <p className='px-2'>
+                            <b>{`Videos (${searchData?.videos?.length ?? 0})`}</b>
+                        </p>
+                        {searchData?.courses?.length > 2 && (
+                            <p className='px-2 mt-1 text-sky-400 text-sm font-medium'>See more</p>
+                        )}
+                    </div>
+                    <section className='flex overflow-x-scroll'>
+                        {searchData?.videos?.map((item: any, index: any) => {
+                            return (
+                                <div key={index}>
+                                    <MVideoCardSmall {...item} />
+                                </div>
+                            )
+                        })}
+                    </section>
+                    <div className='flex justify-between'>
+                        <p className='px-2'>
+                            <b>{`Creators (${searchData?.creators?.length ?? 0})`}</b>
+                        </p>
+                        {searchData?.courses?.length > 2 && (
+                            <p className='px-2 mt-1 text-sky-400 text-sm font-medium'>See more</p>
+                        )}
+                    </div>
+                    <section className='overflow-x-scroll flex'>
+                        {searchData?.creators?.map((item: any, index: any) => {
+                            return (
+                                <div key={index}>
+                                    <MCreatorCardSmall {...item} />
+                                </div>
+                            )
+                        })}
+                    </section>
+                </div>
             ) : null}
             {/* <MVideoCard {...item} /> */}
         </div>

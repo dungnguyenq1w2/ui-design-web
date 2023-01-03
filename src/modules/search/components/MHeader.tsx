@@ -30,6 +30,7 @@ export default function MHeader({ data }: IMHeaderProps) {
     const [isSuggestionModalOpen, setIsSuggestionModalOpen] = useState(false)
     const [suggestions, setSuggestions] = useState<any[]>([])
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
+    // const [searchParams] = useSearchParams()
 
     const [filter, setFilter] = useState({
         type: 'all',
