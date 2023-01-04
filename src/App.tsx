@@ -3,12 +3,14 @@ import './index.css'
 import { Outlet, Route, Routes } from 'react-router-dom'
 
 import CCourse from './common/components/CCourse'
-import CNew from './common/components/CNew'
+import CFooter from './common/components/CFooter'
+// import CNew from './common/components/CNew'
 import CProfile from './common/components/CProfile'
 import CQuiz from './common/components/CQuiz'
 import MHome from './modules/home/pages'
 import MSearch from './modules/search/pages'
 import CReference from './common/components/CReference'
+import { MUploadVideo } from './modules/upload_video/pages'
 
 function App() {
     return (
@@ -18,7 +20,7 @@ function App() {
                 <Route path='/search' element={<MSearch />} />
                 <Route path='/quiz' element={<CQuiz />} />
                 <Route path='/reference' element={<CReference />} />
-                <Route path='/new' element={<CNew />} />
+                <Route path='/new' element={<MUploadVideo />} />
                 <Route path='/course' element={<CCourse />} />
                 <Route path='/profile' element={<CProfile />} />
             </Routes>
@@ -28,5 +30,6 @@ function App() {
         </div>
     )
 }
+
 
 export default App
