@@ -40,7 +40,7 @@ const MFilterModal = ({ onFilterChange, onClose, filter, onApply }: IMFilterModa
     }
 
     return (
-        <div className='flex flex-col m-1 px-2 py-4 absolute top-16 left-0 w-full bg-white shadow-xl'>
+        <div className='flex flex-col m-1 px-2 py-4 absolute top-16 left-0 w-full bg-white shadow-xl z-10'>
             <div className='flex items-center m-3'>
                 <span className='block mb-2 text-sm font-medium text-gray-900 w-24'>Type</span>
                 <button
