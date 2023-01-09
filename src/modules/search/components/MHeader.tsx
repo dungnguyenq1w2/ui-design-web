@@ -151,7 +151,7 @@ export default function MHeader({ data }: IMHeaderProps) {
                 strokeWidth={1.5}
                 stroke='currentColor'
                 className='w-6 h-6 mr-2'
-                onClick={() => navigate(-1)}
+                onClick={() => navigate('/')}
             >
                 <path
                     strokeLinecap='round'

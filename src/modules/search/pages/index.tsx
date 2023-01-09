@@ -10,6 +10,7 @@ import { data } from '../data/SampleData'
 import MCourseCardSmall from '../components/MCourseCardSmall'
 import MVideoCardSmall from '../components/MVideoCardSmall'
 import MCreatorCardSmall from '../components/MCreatorCardSmall'
+import { parseStringValue } from '~/utils/utils'
 
 export interface IMSearchProps {
     id?: string
@@ -92,65 +93,99 @@ export default function MSearch() {
                     }
                 }
             } else if (filter.type === 'course') {
-                const courseFilter: any = {}
+                // const courseFilter: any = {}
+                // if (filter[filter.type].duration) {
+                //     const tokens = filter[filter.type].duration.split(',')
+                //     courseFilter.duration = {}
+                //     courseFilter.duration.low = parseInt(tokens[0])
+                //     courseFilter.duration.high = parseInt(tokens[1])
+                // }
+                // if (filter[filter.type].price) {
+                //     const tokens = filter[filter.type].price.split(',')
+                //     courseFilter.price = {}
+                //     courseFilter.price.low = parseInt(tokens[0])
+                //     courseFilter.price.high = parseInt(tokens[1])
+                // }
+                // if (filter[filter.type].rating) {
+                //     const tokens = filter[filter.type].rating.split(',')
+                //     courseFilter.rating = {}
+                //     courseFilter.rating.low = parseInt(tokens[0])
+                //     courseFilter.rating.high = parseInt(tokens[1])
+                // }
+                // if (filter[filter.type].sortby) {
+                //     courseFilter.sortby = filter[filter.type].sortby
+                // }
+
                 if (filter[filter.type].duration) {
                     const tokens = filter[filter.type].duration.split(',')
-                    courseFilter.duration = {}
-                    courseFilter.duration.low = parseInt(tokens[0])
-                    courseFilter.duration.high = parseInt(tokens[1])
+                    result = result.filter(
+                        (course: any) =>
+                            course?.duration >= parseInt(tokens[0]) &&
+                            course?.duration <= parseInt(tokens[1]),
+                    )
                 }
+
                 if (filter[filter.type].price) {
                     const tokens = filter[filter.type].price.split(',')
-                    courseFilter.price = {}
-                    courseFilter.price.low = parseInt(tokens[0])
-                    courseFilter.price.high = parseInt(tokens[1])
+                    result = result.filter(
+                        (course: any) =>
+                            course?.currentPrice >= parseInt(tokens[0]) &&
+                            course?.currentPrice <= parseInt(tokens[1]),
+                    )
                 }
+
                 if (filter[filter.type].rating) {
                     const tokens = filter[filter.type].rating.split(',')
-                    courseFilter.rating = {}
-                    courseFilter.rating.low = parseInt(tokens[0])
-                    courseFilter.rating.high = parseInt(tokens[1])
+                    result = result.filter(
+                        (course: any) =>
+                            course?.rating >= parseInt(tokens[0]) &&
+                            course?.rating <= parseInt(tokens[1]),
+                    )
                 }
+                // result = result.filter((e: any) => {
+                //     let isMatch = true
+                //     if (courseFilter?.duration) {
+                //         isMatch =
+                //             e.duration >= courseFilter.duration.low &&
+                //             e.duration <= courseFilter.duration.high
+                //     }
+                //     if (courseFilter?.price) {
+                //         isMatch =
+                //             e.currentPrice >= courseFilter.price.low &&
+                //             e.currentPrice <= courseFilter.price.high
+                //     }
+                //     if (courseFilter?.duration) {
+                //         isMatch =
+                //             e.rating >= courseFilter.rating.low &&
+                //             e.rating <= courseFilter.rating.high
+                //     }
+
+                //     return isMatch
+                //     // e.duration >= courseFilter.duration.low &&
+                //     // e.duration <= courseFilter.duration.high &&
+                //     // e.currentPrice >= courseFilter.price.low &&
+                //     // e.currentPrice <= courseFilter.price.high &&
+                //     // e.rating >= courseFilter.rating?.low &&
+                //     // e.rating <= courseFilter.rating?.high,
+                // })
+
+                // if (courseFilter.sortby !== 'all') {
+                //     if (courseFilter.sortby === 'popular') {
+                //         result = result.sort((a: any, b: any) => {
+                //             return b?.enroll - a?.enroll
+                //         })
+                //     } else if (courseFilter.sortby === 'rating') {
+                //         result = result.sort((a: any, b: any) => {
+                //             return b?.rating - a?.rating
+                //         })
+                //     }
+                // }
                 if (filter[filter.type].sortby) {
-                    courseFilter.sortby = filter[filter.type].sortby
-                }
-
-                result = result.filter((e: any) => {
-                    let isMatch = true
-                    if (courseFilter?.duration) {
-                        isMatch =
-                            e.duration >= courseFilter.duration.low &&
-                            e.duration <= courseFilter.duration.high
-                    }
-                    if (courseFilter?.price) {
-                        isMatch =
-                            e.currentPrice >= courseFilter.price.low &&
-                            e.currentPrice <= courseFilter.price.high
-                    }
-                    if (courseFilter?.duration) {
-                        isMatch =
-                            e.rating >= courseFilter.rating.low &&
-                            e.rating <= courseFilter.rating.high
-                    }
-
-                    return isMatch
-                    // e.duration >= courseFilter.duration.low &&
-                    // e.duration <= courseFilter.duration.high &&
-                    // e.currentPrice >= courseFilter.price.low &&
-                    // e.currentPrice <= courseFilter.price.high &&
-                    // e.rating >= courseFilter.rating?.low &&
-                    // e.rating <= courseFilter.rating?.high,
-                })
-
-                if (courseFilter.sortby !== 'all') {
-                    if (courseFilter.sortby === 'popular') {
-                        result = result.sort((a: any, b: any) => {
-                            return b?.enroll - a?.enroll
-                        })
-                    } else if (courseFilter.sortby === 'rating') {
-                        result = result.sort((a: any, b: any) => {
-                            return b?.rating - a?.rating
-                        })
+                    const sortby = filter[filter.type].sortby
+                    if (sortby === 'popular') {
+                        result = result.sort((a: any, b: any) => b?.enroll - a?.enroll)
+                    } else if (sortby === 'rating') {
+                        result = result.sort((a: any, b: any) => b?.rating - a?.rating)
                     }
                 }
             } else if (filter.type === 'creator') {
@@ -192,13 +227,15 @@ export default function MSearch() {
                 <>
                     <section className='h-[8vh] px-2'>
                         <span>
-                            Duration <b>2-5 mins</b>
+                            Duration{' '}
+                            <b>{parseStringValue(filter[filter.type].duration, '1000', 'mins')}</b>
                         </span>
                         <span>
-                            | Rating <b>4-5*</b>
+                            | Rating <b>{parseStringValue(filter[filter.type].rating, '5', '*')}</b>
                         </span>
                         <span>
-                            | Sort by <b>Popular</b>
+                            | Sort by{' '}
+                            <b className='capitalize'>{filter[filter.type].sortby ?? 'All'}</b>
                         </span>
                         <p>
                             <b>
@@ -220,13 +257,19 @@ export default function MSearch() {
                 <>
                     <section className='h-[8vh] px-2'>
                         <span>
-                            Duration <b>2-5 mins</b>
+                            Duration{' '}
+                            <b>{parseStringValue(filter[filter.type].duration, '1000', 'hours')}</b>
                         </span>
                         <span>
-                            | Rating <b>4-5*</b>
+                            | Price{' '}
+                            <b>{parseStringValue(filter[filter.type].price, '1000', '$')}</b>
                         </span>
                         <span>
-                            | Sort by <b>Popular</b>
+                            | Rating <b>{parseStringValue(filter[filter.type].rating, '5', '*')}</b>
+                        </span>
+                        <span>
+                            | Sort by{' '}
+                            <b className='capitalize'>{filter[filter.type].sortby ?? 'All'}</b>
                         </span>
                         <p>
                             <b>
@@ -248,10 +291,10 @@ export default function MSearch() {
                 <>
                     <section className='h-[8vh] px-2'>
                         <span>
-                            Level <b>All</b>{' '}
+                            Level <b className='capitalize'>{filter[filter.type].level ?? 'All'}</b>{' '}
                         </span>
                         <span>
-                            | Rating <b>4-5*</b>
+                            | Rating <b>{parseStringValue(filter[filter.type].rating, '5', '*')}</b>
                         </span>
                         <p>
                             <b>
