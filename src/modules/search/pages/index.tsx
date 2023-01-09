@@ -191,7 +191,8 @@ export default function MSearch() {
             } else if (filter.type === 'creator') {
                 if (filter[filter.type].level) {
                     result = result.filter(
-                        (creator: any) => creator?.level === filter[filter.type].level,
+                        (creator: any) =>
+                            creator?.level?.toLowerCase() === filter[filter.type].level,
                     )
                 }
 
